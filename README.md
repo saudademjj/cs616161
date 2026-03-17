@@ -1,38 +1,42 @@
-# CS61A - The Game of Hog (计算机科学实验项目)
+# CS61A - The Game of Hog (伯克利 CS61A 实验项目 / UC Berkeley CS61A Lab Project)
 
-[![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python)](https://www.python.org/)
-[![Course](https://img.shields.io/badge/Course-CS61A-yellow)](https://cs61a.org/)
+本项目来源于 UC Berkeley 经典入门课程 CS61A 的第一个大作业。通过 Python 深入探索函数式编程范式与高阶函数的应用逻辑。
 
-本项目源自加州大学伯克利分校 (UC Berkeley) 入门课程 CS61A。通过实现 Hog 游戏的完整逻辑，本项目重点练习了 Python 中的高阶函数应用、控制流管理以及简单的策略模拟。
+This project originates from the first major assignment of UC Berkeley's classic introductory course, CS61A. It deeply explores the functional programming paradigm and the application logic of higher-order functions through Python.
 
-## 项目内容
+## 核心实践 / Core Practices
 
-- 游戏引擎: 实现基于特定规则的掷骰子系统，包含多个趣味性特殊规则。
-- 自动化策略: 编写策略函数，根据当前分值决定掷骰子数量，以优化获胜概率。
-- 概率模拟: 构建模拟程序测试不同策略在多次对局中的实际表现。
-- 编程范式: 实践函数式编程中的高阶函数组合与控制流抽象。
+- 高阶函数应用 (Higher-Order Functions):
+    - 实践函数作为一等公民的传递与返回。 / Passing and returning functions as first-class citizens.
+    - 构建复杂的逻辑闭包。 / Building complex logical closures.
 
-## 项目结构
+- 博弈策略模拟 (Strategy Simulation):
+    - 开发能够根据比分反馈自动决策的策略函数。 / Developing strategy functions that make automated decisions based on score feedback.
+    - 实现最大期望值策略 (Always Roll n)。 / Implementing expected value maximization strategies.
+
+- 概率期望计算 (Probability & Expectation):
+    - 通过万次仿真实验分析不同策略的获胜概率。 / Analyzing win probabilities via massive simulation runs.
+
+## 项目结构 / Project Structure
 
 ```text
-.
-├── hog.py          # 核心业务逻辑与策略实现
-├── hog_gui.py      # 图形化界面 (External)
-├── dice.py         # 骰子模拟器
-├── tests/          # 单元测试用例
-└── README.md
+cs616161/
+├── hog.py          # 核心游戏引擎与策略逻辑 / Core engine and strategies
+├── dice.py         # 随机骰子生成器 / Randomized dice generator
+└── tests/          # 基于 OK 系统构建的单元测试集 / OK autograder tests
 ```
 
-## 运行方式
+## 运行方式 / Running
 
-### 1. 环境要求
-Python 3.6+
+### 1. 运行测试 / Run Tests
+```bash
+python3 ok -q 01
+```
 
-### 2. 交互式运行
-`python3 hog_gui.py`
+### 2. 图形化对战 / GUI Mode
+```bash
+python3 hog_gui.py
+```
 
-### 3. 评测系统
-`python3 ok -q 01`
-
-## 许可证
-MIT License
+## 许可证 / License
+本项目采用 [MIT License](LICENSE) 协议。 / This project is licensed under the MIT License.
