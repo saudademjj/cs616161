@@ -1,6 +1,6 @@
 # CS61A Hog Implementation
 
-[中文说明](./README.md)
+English | [简体中文](README.md)
 
 This repository contains an implementation of the UC Berkeley CS61A `Hog` project, with the core logic stored in `hog.py`. It is useful as a course review artifact, a Python rules-engine exercise, and a reference for strategy-based simulation code.
 
