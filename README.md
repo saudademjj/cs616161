@@ -1,10 +1,8 @@
+<a id="readme-top"></a>
+
 # CS61A Hog 项目实现
 
-**Language:** [Chinese](#chinese-version) | [English](#english-version)
-
-## Chinese Version
-
-**Language:** Chinese | [English](#english-version)
+<p align="right">中文 | <a href="#english-version">English</a></p>
 
 本仓库记录了 UC Berkeley CS61A `Hog` 项目的一份实现，核心代码位于 `hog.py`。它适合作为课程复盘、Python 规则实现练习以及策略函数分析的参考样例。
 
@@ -63,7 +61,7 @@ cs616161/
 
 ## English Version
 
-**Language:** [Chinese](#chinese-version) | English
+<p align="right"><a href="#readme-top">中文</a> | English</p>
 
 This repository contains an implementation of the UC Berkeley CS61A `Hog` project, with the core logic stored in `hog.py`. It is useful as a course review artifact, a Python rules-engine exercise, and a reference for strategy-based simulation code.
 
