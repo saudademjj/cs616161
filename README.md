@@ -1,6 +1,7 @@
+[English](README_en.md) | 简体中文
+
 # CS61A Hog 项目实现
 
-[English](README_en.md) | 简体中文
 
 本仓库记录了 UC Berkeley CS61A `Hog` 项目的一份实现，核心代码位于 `hog.py`。它适合作为课程复盘、Python 规则实现练习以及策略函数分析的参考样例。
 
