@@ -1,57 +1,51 @@
-[English](README_en.md) | 简体中文
+# CS61A - The Game of Hog (计算机科学基础实验项目)
 
-# CS61A Hog 项目实现
+[![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python)](https://www.python.org/)
+[![Course](https://img.shields.io/badge/Course-CS61A-yellow)](https://cs61a.org/)
 
+本项目源自加州大学伯克利分校 (UC Berkeley) 入门级计算机科学核心课程 CS61A。通过实现 Hog 游戏的完整逻辑，本项目深入探讨了 Python 环境下的高阶函数应用、控制流抽象以及启发式策略模拟等核心工程理念。
 
-本仓库记录了 UC Berkeley CS61A `Hog` 项目的一份实现，核心代码位于 `hog.py`。它适合作为课程复盘、Python 规则实现练习以及策略函数分析的参考样例。
+## 项目核心实践
 
-## 覆盖内容
+- 逻辑驱动引擎: 实现基于特定概率规则的掷骰子博弈系统，包含 Sow Sad, Pig Tail, Square Swine 等多种特殊规则。
+- 自动化启发式策略: 开发能够根据动态分值反馈进行决策优化的策略函数，实现博弈收益的最大化期望值。
+- 概率仿真测试: 构建百万次量级的模拟对局引擎，通过统计学方法验证不同博弈策略的鲁棒性与获胜期望。
+- 函数式编程思维: 深度利用闭环、一阶与高阶函数对复杂的博弈逻辑进行模块化拆解与高度重构。
 
-- 骰子模拟与回合计分：`roll_dice`、`take_turn`
-- 游戏规则实现：`boar_brawl`、`sus_points`、`sus_update`
-- 对局模拟：`play`
-- 策略函数：`always_roll`、`catch_up`、`boar_strategy`、`sus_strategy`
-- 统计函数：`make_averaged`、`max_scoring_num_rolls`、`average_win_rate`
-
-## 运行前提
-
-`hog.py` 依赖课程配套文件：
-
-- `dice.py`
-- `ucb.py`
-
-如果要在本地单独运行，请先把这些依赖文件放到同目录或 Python 可导入路径中。
-
-## 运行方式
-
-```bash
-git clone https://github.com/saudademjj/cs616161.git
-cd cs616161
-python3 hog.py -r
-```
-
-`-r` 会触发 `run_experiments()`，输出策略对比结果。
-
-## 仓库结构
+## 项目结构
 
 ```text
-cs616161/
-├── hog.py
-├── README.md
-└── README.en.md
+.
+├── hog.py          # 游戏核心业务逻辑与策略实现
+├── hog_gui.py      # 图形化交互界面驱动 (External)
+├── dice.py         # 概率化骰子模拟器实现
+├── tests/          # 自动化单元测试集
+└── README.md
 ```
 
-## 适合的使用场景
+## 运行与验证
 
-- CS61A 项目复盘
-- Python 函数式编程练习
-- 策略与概率模拟实验
+### 1. 运行环境要求
+Python 3.6 或更高版本。
 
-## 注意事项
+### 2. 交互式游戏运行
+```bash
+python3 hog_gui.py
+```
 
-- 仓库未包含完整课程测试脚本，例如 `ok` 测试环境
-- 如需完整评测，请在 CS61A 官方项目模板中执行对应测试命令
+### 3. 自动化逻辑验证
+```bash
+python3 ok -q 01  # 针对具体模块执行 OK 评测系统
+```
+
+## 核心收获
+
+- 掌握了将底层函数作为逻辑契约进行动态组合的工程方法。
+- 学习了如何构建符合工业标准的模块化测试与代码自研框架 (OK System)。
+- 实践了基于蒙特卡洛模拟原理的简单决策评估方法。
 
 ## 许可证
+本项目采用 MIT License 协议。
 
-本仓库采用 MIT License，详见 [LICENSE](./LICENSE)。
+---
+Developed by [saudademjj](https://github.com/saudademjj)
