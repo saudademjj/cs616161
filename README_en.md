@@ -2,58 +2,110 @@
   English | <a href="./README.md">简体中文</a>
 </div>
 
-# CS61A - The Game of Hog (Foundational Computer Science Lab)
+# CS61 Hog -- Dice Game Strategy & Monte Carlo Simulation
 
-![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python)
-![CS61A](https://img.shields.io/badge/Course-UC_Berkeley_CS61A-yellow?style=flat-square)
+![Python](https://img.shields.io/badge/Python-3-3776AB?style=flat-square&logo=python)
+![Functional](https://img.shields.io/badge/Paradigm-Functional-blueviolet?style=flat-square)
+![Monte Carlo](https://img.shields.io/badge/Simulation-Monte_Carlo-orange?style=flat-square)
 
-This project originates from the first major assignment of UC Berkeley's **CS61A**, a core introductory computer science course. By implementing the complete engine and automated game strategies for the Hog game, this project deeply explores functional programming paradigms, control flow abstraction, and decision optimization based on probability and expected values.
+Hog is a two-player dice game strategy project originating from the UC Berkeley CS61 course series. Players decide how many dice to roll each turn to accumulate points, with the goal of being the first to reach 100. Beyond implementing a complete game engine, the project deeply explores functional programming paradigms, automated game strategy design, and million-scale Monte Carlo simulation validation.
 
-## 🎲 Game Rules & Logic Implementation
+## Game Rules
 
-Hog is a two-player dice game. Players compete to reach 100 points first by deciding how many dice to roll each turn. The project implements several special scoring rules:
-- **Sow Sad**: If any of the dice rolled are 1, the score for the turn is 1.
-- **Pig Tail**: Scoring is based on the digits of the opponent's current score (absolute difference of specific digits plus 1).
-- **Square Swine**: If a score resulting from a turn is a perfect square, it is automatically boosted to the next perfect square.
+The game includes the following special scoring rules that add rich strategic dimensions:
 
-## 🧠 Core Engineering Practices
+### Sow Sad
+If any die rolled in a turn shows a 1, the turn score is forced to 1 regardless of other dice values. This rule penalizes greedy strategies -- the more dice rolled, the higher the probability of triggering this rule.
+
+### Pig Tail
+Triggered when a player chooses to roll 0 dice. The turn score is calculated based on digit characteristics of the opponent's current score: the absolute difference of digits at specific positions plus 1. This provides a deterministic guaranteed return for "not rolling."
+
+### Square Swine
+If the cumulative score after a turn is a perfect square (e.g., 1, 4, 9, 16, 25...), the score automatically promotes to the next perfect square. This rule introduces the concept of "landing on targets" -- precisely controlling scores to land on perfect squares yields bonus jumps.
+
+## Core Engineering Practices
 
 ### 1. Functional Programming Paradigm
-- **Higher-Order Function Composition**: Implements numerous functions that return other functions. By dynamically combining different strategy functions, the game logic remains highly decoupled.
-- **Closure Usage**: Leverages Python's closures to maintain game states without global variables, enhancing modularity and testability.
+
+The project extensively employs functional programming concepts, serving as an excellent practice ground for Python higher-order functions and closures:
+
+- Higher-Order Function Composition: The system implements numerous "functions that return functions." By dynamically composing different strategy functions, game logic achieves a high degree of decoupling. For example, dice generators, turn processors, and strategy selectors all use functions as both parameters and return values
+- Closure Application: Python closures maintain game state (current scores, turn counts, etc.), avoiding global variable abuse. Each strategy function captures its runtime environment through closures, enhancing testability and composability
+- Pure Function Design: Core game logic is designed as side-effect-free pure functions wherever possible, facilitating unit testing and formal verification
 
 ### 2. Automated Game Strategy
-- **Heuristic Decision Making**: Developed strategy functions that real-time adjust the number of dice rolled based on score feedback.
-- **EV Maximization**: Implemented a `final_strategy` based on probability statistics. It calculates the win probability for various actions and chooses the one with the highest expected utility.
+
+The project implements a multi-layered automated decision system:
+
+- Heuristic Decision Making: Strategy functions that adjust the number of dice rolled in real-time based on both players' current scores. Strategies comprehensively consider score differentials, probabilities of triggering special rules, and risk-reward ratios
+- EV Maximization: A `final_strategy` based on probability statistics that calculates win probability expectations for different decisions (rolling 0-10 dice) and automatically selects the action with the optimal risk-reward ratio
+- Opponent Modeling: Strategy design accounts for possible opponent behavior patterns, implementing basic game-theoretic adversarial logic
 
 ### 3. Million-Scale Monte Carlo Simulation
-- **Simulation Engine**: Built a high-performance match simulator. By executing 1,000,000+ match iterations, the project gathers theoretical win rates to validate the robustness of different heuristic algorithms.
 
-## 📂 Project Structure
+- Simulation Engine: A high-performance match simulator supporting automated confrontation between any two strategy functions
+- Large-Scale Experiments: Executing 1,000,000+ strategy confrontation experiments to obtain theoretical win rates for different strategies
+- Robustness Validation: Using statistical significance tests to verify stable performance of heuristic algorithms against various opponent strategies
+- Strategy Iteration: Repeatedly tuning strategy parameters based on simulation results, approaching theoretically optimal solutions
+
+## Directory Structure
 
 ```text
 cs616161/
-├── hog.py          # Core game engine, rule definitions, and strategy development
-├── dice.py         # Implementation of both Deterministic and Randomized dice logic
-├── hog_gui.py      # Native Python graphical interface for manual play and strategy debugging
-├── tests/          # Granular unit test cases built on the OK Autograder framework
-└── README.md       # This document: Rules and technical breakdown
+├── hog.py          # Core game engine: rule definitions, turn processing, strategy development, EV calculation
+├── dice.py         # Dice logic: deterministic dice (for testing) and randomized dice implementations
+├── hog_gui.py      # GUI: native Python visual strategy battle and debugging tool
+├── tests/          # Test suite: granular unit test cases built on the OK Autograder framework
+└── README.md       # Project documentation
 ```
 
-## 🚀 Usage
+## Usage
+
+### Prerequisites
+
+- Python >= 3.6
 
 ### Automated Verification
-Verification is performed via the Berkeley-developed OK system:
+
+The project uses UC Berkeley's OK autograder system for logic verification:
+
 ```bash
-# Verify the correctness of a specific phase (e.g., Phase 1)
+# Verify correctness of a specific phase (e.g., Phase 1)
 python3 ok -q 01
+
+# Verify all phases
+python3 ok
+
+# View detailed test output
+python3 ok -v
 ```
 
 ### Interactive Execution
+
 ```bash
 # Launch the GUI for manual play or strategy observation
 python3 hog_gui.py
 ```
 
+### Strategy Simulation
+
+Run Monte Carlo simulations in a Python interactive environment:
+
+```python
+from hog import *
+
+# Run 1 million match simulations comparing two strategies' win rates
+win_rate = average_win_rate(final_strategy, baseline_strategy)
+print(f"Final strategy win rate: {win_rate:.4f}")
+```
+
+## Technical Highlights
+
+- Pure Functional Architecture: The entire game engine is built on higher-order functions and closures with no class definitions, showcasing the expressiveness of Python's functional programming capabilities
+- Probability-Driven Decisions: final_strategy is based on precise probability calculations rather than simple if-else rules, embodying data-driven engineering thinking
+- Statistical Verification Loop: Strategy design -> Monte Carlo simulation -> statistical analysis -> parameter tuning, forming a complete experimental verification pipeline
+- Composability: Strategy functions can be freely combined like building blocks, enabling rapid experimentation with different decision logic
+
 ## License
+
 MIT License
